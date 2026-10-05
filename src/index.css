@@ -1,0 +1,67 @@
+@import 'tailwindcss';
+
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+  --font-sans: var(--font-open-sans), system-ui, sans-serif;
+  --font-heading: var(--font-montserrat), system-ui, sans-serif;
+
+  /* Paleta institucional UNA — solo azules */
+  --color-una-navy: #0a6bc4;
+  --color-una-navy-dark: #062f5c;
+  --color-una-accent: #4a9eff;
+  --color-una-light: #e7f0fb;
+}
+
+:root {
+  --font-open-sans: 'Open Sans';
+  --font-montserrat: 'Montserrat';
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 4.5rem;
+}
+
+body {
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #ffffff;
+  color: #0f172a;
+  overflow-x: hidden;
+}
+
+/* ============================================================
+   Cartelera: carrusel horizontal infinito
+   ============================================================ */
+@keyframes bulletin-scroll-horizontal {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.bulletin-track-horizontal {
+  animation: bulletin-scroll-horizontal 60s linear infinite;
+  will-change: transform;
+  width: max-content;
+}
+
+.bulletin-track-horizontal:hover {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bulletin-track-horizontal {
+    animation: none;
+  }
+}
