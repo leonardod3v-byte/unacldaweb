@@ -1,31 +1,41 @@
 import { useMemo, useState } from 'react'
-import { ArrowUpRight, Filter, BookOpen, GraduationCap } from 'lucide-react'
+import { ArrowUpRight, Filter, BookOpen, GraduationCap, Calculator, Users, Briefcase } from 'lucide-react'
 
 // ============================================================
 // Tipos
 // ============================================================
-type Categoria = 'Pregrado' | 'Postgrado'
+type Area = 'Ingeniería' | 'Administración' | 'Educación' | 'Postgrados'
 
 interface Programa {
     nombre: string
     descripcion: string
-    categoria: Categoria
+    area: Area
     href: string
 }
 
 // ============================================================
-// Config por categoría
+// Config por área (icono + colores)
 // ============================================================
-const configCategoria: Record<
-    Categoria,
+const configArea: Record<
+    Area,
     { icon: typeof BookOpen; color: string; bg: string }
 > = {
-    Pregrado: {
-        icon: BookOpen,
+    Ingeniería: {
+        icon: Calculator,
         color: 'text-una-navy',
         bg: 'bg-una-navy/10',
     },
-    Postgrado: {
+    Administración: {
+        icon: Briefcase,
+        color: 'text-una-accent',
+        bg: 'bg-una-accent/15',
+    },
+    Educación: {
+        icon: Users,
+        color: 'text-una-navy-dark',
+        bg: 'bg-una-navy/5',
+    },
+    Postgrados: {
         icon: GraduationCap,
         color: 'text-una-accent',
         bg: 'bg-una-accent/15',
@@ -33,99 +43,159 @@ const configCategoria: Record<
 }
 
 // ============================================================
-// Datos
+// Datos: programas por área
 // ============================================================
 const programas: Programa[] = [
-    // ---------- PREGRADO ----------
+    // ---------- INGENIERÍA ----------
     {
         nombre: 'Ingeniería de Sistemas',
         descripcion:
             'Diseño, desarrollo y gestión de sistemas informáticos y soluciones tecnológicas.',
-        categoria: 'Pregrado',
-        href: 'http://unasucre.com.ve/wp-content/uploads/2021/05/236-INGENIERIA-DE-SISTEMA.pdf',
+        area: 'Ingeniería',
+        href: 'https://drive.google.com/drive/folders/1ur135N7IeS7hWgZm6fueWHPKrOwXjObu?usp=sharing',
     },
     {
         nombre: 'Ingeniería Industrial',
         descripcion:
             'Optimización de procesos productivos, calidad y gestión de operaciones.',
-        categoria: 'Pregrado',
-        href: 'http://unasucre.com.ve/wp-content/uploads/2021/05/236-INGENIERIA-DE-SISTEMA.pdf',
+        area: 'Ingeniería',
+        href: 'https://drive.google.com/drive/folders/1_AoiymGgijthOjKPaGdaV2udggPKGhvS?usp=sharing',
     },
     {
-        nombre: 'Lic. en Administración de Empresas',
+        nombre: 'TSU en Mantenimiento de Sistemas Informáticos',
         descripcion:
-            'Gestión organizacional, finanzas, mercadeo y liderazgo empresarial.',
-        categoria: 'Pregrado',
-        href: 'http://unasucre.com.ve/wp-content/uploads/2021/04/612-ADMINISTRACION-DE-EMPRESAS.pdf',
+            'Técnico Superior en mantenimiento preventivo y correctivo de equipos y sistemas.',
+        area: 'Ingeniería',
+        href: 'https://drive.google.com/drive/folders/1xPGfdMBb0l8GKRV2hS-hW0XTUaol10dd?usp=sharing',
     },
     {
-        nombre: 'Educación Integral',
+        nombre: 'TSU en Higiene y Seguridad Industrial',
         descripcion:
-            'Formación docente para la educación básica con enfoque humanista.',
-        categoria: 'Pregrado',
-        href: 'http://unasucre.com.ve/wp-content/uploads/2021/05/440-LIC-EDUCACION-INTEGRAL.pdf',
-    },
-    {
-        nombre: 'Lic. en Contaduría Pública',
-        descripcion:
-            'Contabilidad, auditoría y tributación con dominio de normativa vigente.',
-        categoria: 'Pregrado',
-        href: 'http://unasucre.com.ve/wp-content/uploads/2021/04/612-ADMINISTRACION-DE-EMPRESAS.pdf',
-    },
-    {
-        nombre: 'Lic. en Matemáticas',
-        descripcion:
-            'Formación en matemáticas puras y aplicadas con orientación a la docencia e investigación.',
-        categoria: 'Pregrado',
-        href: 'http://unasucre.com.ve/wp-content/uploads/2021/05/126-MATEMATICA.pdf',
-    },
-    {
-        nombre: 'Curso Introductorio',
-        descripcion:
-            'Preparación para nuevos ingresos: herramientas y métodos de estudio universitario.',
-        categoria: 'Pregrado',
-        href: 'http://unasec.com/formatos/INST_CURSO_INTRODUCTORIO_252.pdf',
+            'Prevención de riesgos laborales, seguridad industrial y salud ocupacional.',
+        area: 'Ingeniería',
+        href: 'https://drive.google.com/drive/folders/1dNFgvQTl1P0PCfxBDJF9wGpqIdAOr21K?usp=sharing',
     },
 
-    // ---------- POSTGRADO ----------
+    // ---------- ADMINISTRACIÓN ----------
     {
-        nombre: 'MSc. Educación Abierta y a Distancia',
+        nombre: 'Licenciatura en Administración de Empresas',
         descripcion:
-            'Maestría orientada al diseño y gestión de programas educativos a distancia.',
-        categoria: 'Postgrado',
-        href: 'https://drive.google.com/file/d/1z6koTTO3TO5lPnbPHeJhPKDGcf6_t1-a/view',
+            'Gestión organizacional, finanzas, mercadeo y liderazgo empresarial.',
+        area: 'Administración',
+        href: 'https://drive.google.com/drive/folders/1JMXsaf3z5ZX26Yx0rgeKY3Rlh2VZeVfm?usp=sharing',
     },
     {
-        nombre: 'MSc. Planificación de la Educación',
+        nombre: 'Licenciatura en Administración (Mención Riesgos y Seguros)',
+        descripcion:
+            'Especialización en gestión de riesgos, seguros y análisis financiero.',
+        area: 'Administración',
+        href: 'https://drive.google.com/drive/folders/1kttHrUzc0jTAMhJsh8fWs3lEaR_Ixy-p?usp=sharing',
+    },
+    {
+        nombre: 'Licenciatura en Contaduría Pública',
+        descripcion:
+            'Contabilidad, auditoría y tributación con dominio de normativa vigente.',
+        area: 'Administración',
+        href: 'https://drive.google.com/drive/folders/1L0eGsmVMAvia5Q4Ronvo-bMCWNmk0pFm?usp=sharing',
+    },
+    {
+        nombre: 'TSU en Contaduría',
+        descripcion:
+            'Técnico Superior en contabilidad, costos y registro de operaciones financieras.',
+        area: 'Administración',
+        href: 'https://drive.google.com/drive/folders/1sUZVBruTaWEpcXqZl3O0P1pBqqp3UUGx?usp=sharing',
+    },
+
+    // ---------- EDUCACIÓN ----------
+    {
+        nombre: 'Licenciatura en Educación Integral',
+        descripcion:
+            'Formación docente para la educación básica con enfoque humanista.',
+        area: 'Educación',
+        href: 'https://drive.google.com/drive/folders/1k6HUPXnAVlzoijbS6bFOF3TWlOvG97EX?usp=sharing',
+    },
+    {
+        nombre: 'Licenciatura en Educación (Mención Dificultades del Aprendizaje)',
+        descripcion:
+            'Atención especializada a estudiantes con dificultades de aprendizaje.',
+        area: 'Educación',
+        href: 'https://drive.google.com/drive/folders/1oFbb5r4dFpbPZCfQrzHExukdcmbK7TJx?usp=sharing',
+    },
+    {
+        nombre: 'Licenciatura en Educación Inicial / Preescolar',
+        descripcion:
+            'Formación docente para la atención integral de niños en edad preescolar.',
+        area: 'Educación',
+        href: 'https://drive.google.com/drive/folders/1dsiTBrC4OyrGWJUrIwUcvXVOMgNhftPY?usp=sharing',
+    },
+    {
+        nombre: 'Licenciatura en Educación Matemática',
+        descripcion:
+            'Formación docente especializada en la enseñanza de las matemáticas.',
+        area: 'Educación',
+        href: 'https://drive.google.com/drive/folders/1TRFYYWZOUc9boBfLseZm8bFxB3FcNcGX?usp=sharing',
+    },
+    {
+        nombre: 'Licenciatura en Matemática',
+        descripcion:
+            'Formación en matemáticas puras y aplicadas con orientación a la docencia e investigación.',
+        area: 'Educación',
+        href: 'https://drive.google.com/drive/folders/1Nn0sriM6oURhxojpmRACs8HqABVQEW9f?usp=sharing',
+    },
+    {
+        nombre: 'TSU en Educación Integral',
+        descripcion:
+            'Técnico Superior en educación integral para apoyo docente en educación básica.',
+        area: 'Educación',
+        href: 'https://drive.google.com/drive/folders/1-GlrvhKK7OkdLwNU0lWY7m1di4B4OMV7?usp=sharing',
+    },
+
+    // ---------- POSTGRADOS ----------
+    {
+        nombre: 'MSc. en Ciencias de la Educación (Mención Planificación de la Educación)',
         descripcion:
             'Especialización en planificación estratégica y gestión de sistemas educativos.',
-        categoria: 'Postgrado',
-        href: 'https://drive.google.com/file/d/1ZhAzqN35V_N7w2G7cKLv4Ofzqy2MuY9R/view',
+        area: 'Postgrados',
+        href: '/docs/pensums/planificacion-educativa.pdf',
     },
     {
-        nombre: 'MSc. Ciencias de la Educación',
+        nombre: 'MSc. en Ciencias de la Educación (Mención Administración Educativa)',
         descripcion:
-            'Mención Administración Educativa. Formación avanzada para directivos y gestores.',
-        categoria: 'Postgrado',
-        href: 'https://drive.google.com/file/d/16MXx1_cRUPWOp9OFSFISueacaexNZgTE/view',
+            'Formación avanzada para directivos y gestores de instituciones educativas.',
+        area: 'Postgrados',
+        href: '/docs/pensums/administracion-educativa.pdf',
     },
     {
-        nombre: 'Esp. Telemática e Informática',
+        nombre: 'MSc. en Educación Abierta y a Distancia',
+        descripcion:
+            'Maestría orientada al diseño y gestión de programas educativos a distancia.',
+        area: 'Postgrados',
+        href: '/docs/pensums/eduacion-abierta-distancia.pdf',
+    },
+    {
+        nombre: 'MSc. en Administración de Negocios',
+        descripcion:
+            'Formación avanzada en dirección estratégica y gestión empresarial.',
+        area: 'Postgrados',
+        href: '/docs/pensums/administracion-negocios.pdf',
+    },
+    {
+        nombre: 'Esp. en Telemática e Informática en Educación a Distancia',
         descripcion:
             'Especialización en tecnologías de la información aplicadas a la educación.',
-        categoria: 'Postgrado',
-        href: 'https://drive.google.com/file/d/1k66WO_mMcJMepSifgpNYlggsMyRPUu5g/view',
+        area: 'Postgrados',
+        href: '/docs/pensums/informatica-telematica.pdf',
     },
     {
         nombre: 'Esp. en Derechos Humanos',
         descripcion:
             'Formación avanzada en promoción, defensa y estudio de los derechos humanos.',
-        categoria: 'Postgrado',
-        href: 'https://drive.google.com/file/d/1-j_hqWfqleRofcw_iasKK0KKSoelL7a3/view',
+        area: 'Postgrados',
+        href: '/docs/pensums/derechos-humanos.pdf',
     },
 ]
 
-const filtros = ['Todas', 'Pregrado', 'Postgrado'] as const
+const filtros = ['Todas', 'Ingeniería', 'Administración', 'Educación', 'Postgrados'] as const
 type Filtro = (typeof filtros)[number]
 
 // ============================================================
@@ -138,7 +208,7 @@ export function AcademicGrid() {
         () =>
             activo === 'Todas'
                 ? programas
-                : programas.filter((p) => p.categoria === activo),
+                : programas.filter((p) => p.area === activo),
         [activo],
     )
 
@@ -154,8 +224,8 @@ export function AcademicGrid() {
                         Nuestra Oferta Académica
                     </h2>
                     <p className="mt-4 text-base text-slate-600 text-pretty">
-                        Carreras y postgrados diseñados para tu crecimiento profesional, con
-                        la flexibilidad de la educación abierta.
+                        Explora nuestras carreras, postgrados y programas organizados por
+                        área de estudio.
                     </p>
                 </div>
 
@@ -165,7 +235,7 @@ export function AcademicGrid() {
                         const total =
                             f === 'Todas'
                                 ? programas.length
-                                : programas.filter((p) => p.categoria === f).length
+                                : programas.filter((p) => p.area === f).length
                         const isActive = activo === f
 
                         return (
@@ -205,7 +275,7 @@ export function AcademicGrid() {
                                 Programa
                             </div>
                             <div className="col-span-2 text-[11px] font-bold uppercase tracking-wider text-slate-500">
-                                Categoría
+                                Área
                             </div>
                             <div className="col-span-2 text-right text-[11px] font-bold uppercase tracking-wider text-slate-500">
                                 Pensum
@@ -215,15 +285,15 @@ export function AcademicGrid() {
 
                     <ul className="divide-y divide-slate-100">
                         {visibles.map((p, i) => {
-                            const config = configCategoria[p.categoria]
+                            const config = configArea[p.area]
                             const Icon = config.icon
 
                             return (
                                 <li key={p.nombre}>
                                     <a
                                         href={p.href}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
+                                        target={p.href !== '#' ? '_blank' : undefined}
+                                        rel={p.href !== '#' ? 'noopener noreferrer' : undefined}
                                         className="group relative block transition-colors duration-200 hover:bg-slate-50 focus:outline-none focus-visible:bg-una-accent/5"
                                     >
                                         <span className="absolute inset-y-0 left-0 w-1 origin-top scale-y-0 bg-una-accent transition-transform duration-300 group-hover:scale-y-100" />
@@ -256,7 +326,7 @@ export function AcademicGrid() {
                                                 <span
                                                     className={`inline-flex items-center gap-1.5 rounded-full ${config.bg} px-3 py-1 text-xs font-bold uppercase tracking-wider ${config.color}`}
                                                 >
-                                                    {p.categoria}
+                                                    {p.area}
                                                 </span>
                                             </div>
 
@@ -280,7 +350,7 @@ export function AcademicGrid() {
                                                     <span
                                                         className={`inline-flex items-center rounded-full ${config.bg} px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider ${config.color}`}
                                                     >
-                                                        {p.categoria}
+                                                        {p.area}
                                                     </span>
                                                     <h3 className="mt-1.5 font-heading text-base font-bold text-una-navy">
                                                         {p.nombre}

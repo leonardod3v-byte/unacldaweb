@@ -56,8 +56,10 @@ body {
   width: max-content;
 }
 
-.bulletin-track-horizontal:hover {
-  animation-play-state: paused;
+@media (hover: hover) and (pointer: fine) {
+  .bulletin-track-horizontal:hover {
+    animation-play-state: paused;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

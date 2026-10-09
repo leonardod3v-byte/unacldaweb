@@ -134,18 +134,6 @@ function OrientadoraModal() {
                             backgroundSize: '24px 24px',
                         }}
                     />
-
-                    <span className="relative inline-flex items-center gap-1.5 rounded-full border border-white/30 bg-white/15 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-white backdrop-blur-sm">
-                        <span className="relative flex h-1.5 w-1.5">
-                            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-white opacity-75" />
-                            <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-white" />
-                        </span>
-                        ¿Necesitas orientación?
-                    </span>
-
-                    <p className="relative mt-3 font-heading text-base font-bold text-white">
-                        Contacta a nuestra orientadora
-                    </p>
                 </div>
 
                 {/* Foto circular */}
@@ -179,11 +167,6 @@ function OrientadoraModal() {
                     </h3>
                     <p className="mt-1 text-xs font-bold uppercase tracking-wider text-una-accent">
                         {orientadora.cargo}
-                    </p>
-
-                    <p className="mt-3 text-sm leading-relaxed text-slate-500 text-pretty">
-                        Para información sobre el Curso Introductorio, contáctala
-                        directamente:
                     </p>
 
                     <div className="mt-5 space-y-2.5">
@@ -375,12 +358,6 @@ export function BulletinBoard() {
                             ))}
                         </div>
                     </div>
-                </div>
-
-                <div className="mx-auto mt-8 max-w-7xl px-4 sm:px-6 lg:px-8">
-                    <p className="text-center text-xs font-medium text-slate-400">
-                        Pasa el cursor sobre la tarjeta de <strong>Inscripción Curso Introductorio</strong> para ver los datos de contacto de la orientadora
-                    </p>
                 </div>
             </div>
         </section>
