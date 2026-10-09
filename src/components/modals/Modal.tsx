@@ -219,17 +219,6 @@ export function Modal() {
                             </li>
                         ))}
                     </ul>
-
-                    {/* Nota informativa */}
-                    <div className="mt-5 flex items-start gap-2 rounded-xl border border-una-navy/10 bg-una-navy/5 p-3 text-[11px] text-slate-600">
-                        <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-una-navy/10 text-una-navy">
-                            <Bell className="h-3 w-3" />
-                        </span>
-                        <p>
-                            Para más información sobre estos procesos, revisa la cartelera
-                            completa o contacta directamente al Centro Local.
-                        </p>
-                    </div>
                 </div>
 
                 {/* ============================================================

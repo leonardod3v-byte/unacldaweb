@@ -7,7 +7,7 @@ import 'plyr-react/plyr.css'
 // ============================================================
 const metrics = [
     { icon: Clock, value: '+49 Años', label: 'de Trayectoria' },
-    { icon: Wifi, value: '100%', label: 'Educación A Distancia' },
+    { icon: Wifi, value: 'Entornos', label: 'Virtuales' },
     { icon: HeartHandshake, value: 'Atención', label: 'Personalizada' },
 ]
 

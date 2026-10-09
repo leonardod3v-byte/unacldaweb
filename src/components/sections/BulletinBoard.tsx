@@ -1,4 +1,5 @@
-import { ExternalLink, Bell, Mail, Calendar } from 'lucide-react'
+import { useState } from 'react'
+import { ExternalLink, Bell, Mail, Calendar, X } from 'lucide-react'
 
 // ============================================================
 // Tipos
@@ -105,49 +106,64 @@ const anuncios: Anuncio[] = [
 ]
 
 // ============================================================
-// Sub-componente: Modal de orientadora (centrado en pantalla)
+// Sub-componente: Modal de orientadora
 // ============================================================
-function OrientadoraModal() {
+function OrientadoraModal({ onClose }: { onClose: () => void }) {
     return (
-        <div className="pointer-events-none fixed inset-0 z-100 flex items-center justify-center bg-una-navy-dark/60 p-4 opacity-0 backdrop-blur-sm transition-opacity duration-300 group-hover:pointer-events-auto group-hover:opacity-100">
+        <div
+            onClick={(e) => {
+                e.stopPropagation()
+                onClose()
+            }}
+            className="absolute inset-0 z-80 flex items-center justify-center rounded-2xl bg-una-navy-dark/80 p-3 backdrop-blur-sm"
+        >
             <div
-                onClick={(e) => e.preventDefault()}
-                className="relative w-full max-w-md scale-95 overflow-hidden rounded-3xl bg-white shadow-2xl transition-transform duration-300 group-hover:scale-100"
+                onClick={(e) => e.stopPropagation()}
+                className="relative w-full overflow-hidden rounded-2xl bg-white shadow-2xl"
             >
-                {/* Header con gradiente + foto */}
-                <div className="relative bg-linear-to-br from-una-navy via-una-navy to-una-navy-dark px-6 pb-16 pt-6">
-                    <div
-                        aria-hidden="true"
-                        className="pointer-events-none absolute -right-12 -top-12 h-32 w-32 rounded-full bg-una-accent/30 blur-3xl"
-                    />
-                    <div
-                        aria-hidden="true"
-                        className="pointer-events-none absolute -left-12 bottom-0 h-32 w-32 rounded-full bg-white/10 blur-3xl"
-                    />
+                {/* Botón cerrar */}
+                <button
+                    type="button"
+                    onClick={onClose}
+                    aria-label="Cerrar"
+                    className="absolute right-2 top-2 z-30 flex h-8 w-8 items-center justify-center rounded-full bg-white/90 text-una-navy shadow-lg transition hover:bg-una-accent hover:text-white"
+                >
+                    <X className="h-4 w-4" />
+                </button>
 
+                {/* Header con gradiente */}
+                <div className="relative bg-linear-to-br from-una-navy via-una-navy to-una-navy-dark px-5 pb-12 pt-6">
+                    <div
+                        aria-hidden="true"
+                        className="pointer-events-none absolute -right-10 -top-10 h-24 w-24 rounded-full bg-una-accent/30 blur-3xl"
+                    />
+                    <div
+                        aria-hidden="true"
+                        className="pointer-events-none absolute -left-10 bottom-0 h-24 w-24 rounded-full bg-white/10 blur-3xl"
+                    />
                     <div
                         aria-hidden="true"
                         className="absolute inset-0 opacity-[0.08]"
                         style={{
                             backgroundImage:
                                 'linear-gradient(rgba(255,255,255,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.5) 1px, transparent 1px)',
-                            backgroundSize: '24px 24px',
+                            backgroundSize: '20px 20px',
                         }}
                     />
                 </div>
 
                 {/* Foto circular */}
-                <div className="relative -mt-14 flex justify-center px-6">
+                <div className="relative -mt-12 flex justify-center px-5">
                     <div className="relative">
                         <img
                             src={orientadora.foto}
                             alt={orientadora.nombre}
-                            className="h-28 w-28 rounded-full object-cover shadow-xl ring-4 ring-white"
+                            className="h-20 w-20 rounded-full object-cover shadow-xl ring-4 ring-white"
                         />
-                        <span className="absolute bottom-1 right-1 flex h-7 w-7 items-center justify-center rounded-full bg-una-accent ring-4 ring-white">
+                        <span className="absolute bottom-0 right-0 flex h-6 w-6 items-center justify-center rounded-full bg-una-accent ring-4 ring-white">
                             <svg
                                 viewBox="0 0 24 24"
-                                className="h-3.5 w-3.5"
+                                className="h-3 w-3"
                                 fill="none"
                                 stroke="white"
                                 strokeWidth={3}
@@ -161,20 +177,21 @@ function OrientadoraModal() {
                 </div>
 
                 {/* Info */}
-                <div className="px-6 pb-6 pt-5 text-center">
-                    <h3 className="font-heading text-xl font-extrabold leading-tight text-una-navy">
+                <div className="px-5 pb-5 pt-3 text-center">
+                    <h3 className="font-heading text-base font-extrabold leading-tight text-una-navy">
                         {orientadora.nombre}
                     </h3>
-                    <p className="mt-1 text-xs font-bold uppercase tracking-wider text-una-accent">
+                    <p className="mt-0.5 text-[10px] font-bold uppercase tracking-wider text-una-accent">
                         {orientadora.cargo}
                     </p>
 
-                    <div className="mt-5 space-y-2.5">
+                    <div className="mt-4 space-y-2">
                         <a
                             href={`mailto:${orientadora.email}`}
-                            className="flex items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm font-semibold text-una-navy transition-all duration-300 hover:-translate-y-0.5 hover:border-una-accent hover:bg-una-accent/5 hover:shadow-md"
+                            onClick={(e) => e.stopPropagation()}
+                            className="flex items-center justify-center gap-1.5 rounded-lg border border-slate-200 bg-white px-3 py-2 text-xs font-semibold text-una-navy transition-all duration-300 hover:border-una-accent hover:bg-una-accent/5"
                         >
-                            <Mail className="h-4 w-4 shrink-0 text-una-accent" />
+                            <Mail className="h-3.5 w-3.5 shrink-0 text-una-accent" />
                             <span className="truncate">{orientadora.email}</span>
                         </a>
 
@@ -182,11 +199,12 @@ function OrientadoraModal() {
                             href={orientadora.whatsappHref}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="flex items-center justify-center gap-2 rounded-xl bg-[#25D366] px-4 py-3 text-sm font-bold text-white shadow-md transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-[#25D366]/40"
+                            onClick={(e) => e.stopPropagation()}
+                            className="flex items-center justify-center gap-1.5 rounded-lg bg-[#25D366] px-3 py-2 text-xs font-bold text-white shadow-md transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg"
                         >
                             <svg
                                 viewBox="0 0 24 24"
-                                className="h-4 w-4 shrink-0"
+                                className="h-3.5 w-3.5 shrink-0"
                                 fill="currentColor"
                                 aria-hidden="true"
                             >
@@ -204,7 +222,17 @@ function OrientadoraModal() {
 // ============================================================
 // Sub-componente: Card individual
 // ============================================================
-function AnnouncementCard({ anuncio }: { anuncio: Anuncio }) {
+function AnnouncementCard({
+    anuncio,
+    modalAbierto,
+    onOrientadoraOpen,
+    onOrientadoraClose,
+}: {
+    anuncio: Anuncio
+    modalAbierto: boolean
+    onOrientadoraOpen: () => void
+    onOrientadoraClose: () => void
+}) {
     const contenido = (
         <>
             <div className="relative h-48 w-full overflow-hidden rounded-t-2xl bg-slate-100 sm:h-56">
@@ -253,7 +281,12 @@ function AnnouncementCard({ anuncio }: { anuncio: Anuncio }) {
                 </div>
 
                 <div className="mt-5 flex items-center justify-between gap-3 border-t border-slate-100 pt-4">
-                    {anuncio.href ? (
+                    {anuncio.orientadora ? (
+                        <span className="inline-flex items-center gap-1.5 text-xs font-bold text-una-accent">
+                            Ver orientadora
+                            <ExternalLink className="h-3.5 w-3.5" />
+                        </span>
+                    ) : anuncio.href ? (
                         <span className="inline-flex items-center gap-1.5 text-xs font-bold text-una-navy transition group-hover:text-una-accent">
                             Ver más información
                             <ExternalLink className="h-3.5 w-3.5 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
@@ -273,16 +306,32 @@ function AnnouncementCard({ anuncio }: { anuncio: Anuncio }) {
     )
 
     const clases = `group relative flex w-80 shrink-0 snap-start flex-col rounded-2xl border bg-white shadow-md transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl sm:w-96 ${anuncio.destacado
-            ? 'border-una-accent/40 ring-2 ring-una-accent/20 hover:ring-una-accent/60'
-            : 'border-slate-200 hover:border-una-accent/40'
+        ? 'border-una-accent/40 ring-2 ring-una-accent/20 hover:ring-una-accent/60'
+        : 'border-slate-200 hover:border-una-accent/40'
         }`
 
-    const card = (
-        <article className={clases}>
-            {contenido}
-            {anuncio.orientadora && <OrientadoraModal />}
-        </article>
-    )
+    // Card con orientadora: PC hover + móvil click
+    if (anuncio.orientadora) {
+        return (
+            <div
+                className={`${clases} cursor-pointer text-left`}
+                onMouseEnter={onOrientadoraOpen}
+                onMouseLeave={onOrientadoraClose}
+                onClick={onOrientadoraOpen}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault()
+                        onOrientadoraOpen()
+                    }
+                }}
+            >
+                {contenido}
+                {modalAbierto && <OrientadoraModal onClose={onOrientadoraClose} />}
+            </div>
+        )
+    }
 
     if (anuncio.href) {
         return (
@@ -292,74 +341,92 @@ function AnnouncementCard({ anuncio }: { anuncio: Anuncio }) {
                 rel="noopener noreferrer"
                 className="contents"
             >
-                {card}
+                <article className={clases}>{contenido}</article>
             </a>
         )
     }
 
-    return card
+    return <article className={clases}>{contenido}</article>
 }
 
 // ============================================================
 // Componente principal
 // ============================================================
 export function BulletinBoard() {
+    const [modalAbierto, setModalAbierto] = useState(false)
+    const [pausado, setPausado] = useState(false)
+
     const listaDuplicada = [...anuncios, ...anuncios]
 
     return (
-        <section
-            id="cartelera"
-            className="relative scroll-mt-20 overflow-hidden bg-white py-20 sm:py-24"
-        >
-            <div aria-hidden="true" className="pointer-events-none absolute inset-0">
-                <div className="absolute -left-32 top-20 h-72 w-72 rounded-full bg-una-accent/5 blur-3xl" />
-                <div className="absolute -right-32 bottom-20 h-72 w-72 rounded-full bg-una-navy/5 blur-3xl" />
+        <>
+            <section
+                id="cartelera"
+                className="relative scroll-mt-20 overflow-hidden bg-white py-20 sm:py-24"
+            >
+                <div aria-hidden="true" className="pointer-events-none absolute inset-0">
+                    <div className="absolute -left-32 top-20 h-72 w-72 rounded-full bg-una-accent/5 blur-3xl" />
+                    <div className="absolute -right-32 bottom-20 h-72 w-72 rounded-full bg-una-navy/5 blur-3xl" />
 
-                <div
-                    className="absolute inset-0 opacity-[0.03]"
-                    style={{
-                        backgroundImage:
-                            'radial-gradient(circle, rgba(10,107,196,0.8) 1px, transparent 1px)',
-                        backgroundSize: '24px 24px',
-                    }}
-                />
-            </div>
-
-            <div className="relative">
-                <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                    <div className="mx-auto max-w-2xl text-center">
-                        <span className="inline-flex items-center gap-2 rounded-full border border-una-accent/30 bg-una-accent/10 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.2em] text-una-accent">
-                            <span className="relative flex h-2 w-2">
-                                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-una-accent opacity-75" />
-                                <span className="relative inline-flex h-2 w-2 rounded-full bg-una-accent" />
-                            </span>
-                            <Bell className="h-3.5 w-3.5" />
-                            Atención estudiantes
-                        </span>
-
-                        <h2 className="mt-4 font-heading text-3xl font-extrabold leading-tight text-una-navy text-balance sm:text-4xl">
-                            Cartelera Informativa
-                        </h2>
-                        <p className="mt-4 text-base text-slate-600 text-pretty">
-                            Consulta las fechas y procesos académicos vigentes del Centro
-                            Local Delta Amacuro.
-                        </p>
-                    </div>
+                    <div
+                        className="absolute inset-0 opacity-[0.03]"
+                        style={{
+                            backgroundImage:
+                                'radial-gradient(circle, rgba(10,107,196,0.8) 1px, transparent 1px)',
+                            backgroundSize: '24px 24px',
+                        }}
+                    />
                 </div>
 
-                <div className="relative mt-14">
-                    <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-20 bg-linear-to-r from-white to-transparent sm:w-32" />
-                    <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-20 bg-linear-to-l from-white to-transparent sm:w-32" />
+                <div className="relative">
+                    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                        <div className="mx-auto max-w-2xl text-center">
+                            <span className="inline-flex items-center gap-2 rounded-full border border-una-accent/30 bg-una-accent/10 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.2em] text-una-accent">
+                                <span className="relative flex h-2 w-2">
+                                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-una-accent opacity-75" />
+                                    <span className="relative inline-flex h-2 w-2 rounded-full bg-una-accent" />
+                                </span>
+                                <Bell className="h-3.5 w-3.5" />
+                                Atención estudiantes
+                            </span>
 
-                    <div className="overflow-hidden py-4">
-                        <div className="bulletin-track-horizontal flex gap-6 pl-4 sm:pl-6 lg:pl-8">
-                            {listaDuplicada.map((a, i) => (
-                                <AnnouncementCard key={`${i}-${a.titulo}`} anuncio={a} />
-                            ))}
+                            <h2 className="mt-4 font-heading text-3xl font-extrabold leading-tight text-una-navy text-balance sm:text-4xl">
+                                Cartelera Informativa
+                            </h2>
+                            <p className="mt-4 text-base text-slate-600 text-pretty">
+                                Consulta las fechas y procesos académicos vigentes del Centro
+                                Local Delta Amacuro.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div className="relative mt-14">
+                        <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-20 bg-linear-to-r from-white to-transparent sm:w-32" />
+                        <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-20 bg-linear-to-l from-white to-transparent sm:w-32" />
+
+                        <div
+                            className="overflow-x-clip overflow-y-visible py-4"
+                            onMouseEnter={() => setPausado(true)}
+                            onMouseLeave={() => setPausado(false)}
+                        >
+                            <div
+                                className="bulletin-track-horizontal flex gap-6 pl-4 sm:pl-6 lg:pl-8"
+                                style={{ animationPlayState: pausado ? 'paused' : 'running' }}
+                            >
+                                {listaDuplicada.map((a, i) => (
+                                    <AnnouncementCard
+                                        key={`${i}-${a.titulo}`}
+                                        anuncio={a}
+                                        modalAbierto={a.orientadora ? modalAbierto : false}
+                                        onOrientadoraOpen={() => setModalAbierto(true)}
+                                        onOrientadoraClose={() => setModalAbierto(false)}
+                                    />
+                                ))}
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
+        </>
     )
 }
