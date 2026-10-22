@@ -10,6 +10,7 @@ type Categoria =
     | 'Postgrado'
     | 'Inscripción'
     | 'Competencia'
+    | 'Advertencia'
 
 interface Anuncio {
     titulo: string
@@ -22,23 +23,19 @@ interface Anuncio {
 }
 
 // ============================================================
-// Imágenes por categoría
+// Imágenes por categoría (mantén las que tenías)
 // ============================================================
 const imagenes: Record<Categoria, string> = {
-    Inglés:
-        'https://images.unsplash.com/photo-1546410531-bb4caa6b424d?q=80&w=800&auto=format&fit=crop',
-    Modificación:
-        'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=800&auto=format&fit=crop',
-    Postgrado:
-        'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=800&auto=format&fit=crop',
-    Inscripción:
-        'https://images.unsplash.com/photo-1434030216411-0b793f4b4173?q=80&w=800&auto=format&fit=crop',
-    Competencia:
-        'https://images.unsplash.com/photo-1589330694653-ded6df03f754?q=80&w=800&auto=format&fit=crop',
+    Inglés: 'https://images.unsplash.com/photo-1546410531-bb4caa6b424d?q=80&w=800&auto=format&fit=crop',
+    Modificación: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=800&auto=format&fit=crop',
+    Postgrado: 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=800&auto=format&fit=crop',
+    Inscripción: 'https://images.unsplash.com/photo-1434030216411-0b793f4b4173?q=80&w=800&auto=format&fit=crop',
+    Competencia: 'https://images.unsplash.com/photo-1589330694653-ded6df03f754?q=80&w=800&auto=format&fit=crop',
+    Advertencia: 'https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=800&auto=format&fit=crop', // Puedes cambiarla
 }
 
 // ============================================================
-// Datos: orientadora
+// Datos: orientadora (Tibisay)
 // ============================================================
 const orientadora = {
     nombre: 'MsC Tibisay Padrino',
@@ -50,58 +47,43 @@ const orientadora = {
 }
 
 // ============================================================
-// Datos: anuncios
+// Datos: NUEVOS ANUNCIOS
 // ============================================================
 const anuncios: Anuncio[] = [
     {
-        titulo: 'Presentación de Prueba de Suficiencia de Inglés 2do Momento',
-        fecha: '14 de noviembre de 2026',
+        titulo: 'Inscripción de 2do Proceso de Suficiencia de Inglés',
+        fecha: '13 al 17 de octubre (Lapso 2026-2)',
         categoria: 'Inglés',
         imagen: imagenes['Inglés'],
+        destacado: true,
+        href: 'https://unasec.una.edu.ve',
     },
     {
-        titulo: 'Procesos de Modificaciones',
-        fecha: 'Del 20/10/2026 al 31/10/2026',
+        titulo: 'Adición y Retiro de Asignaturas (No habilitado)',
+        fecha: 'Lapso 2026-2',
+        categoria: 'Advertencia',
+        imagen: imagenes['Advertencia'],
+    },
+    {
+        titulo: 'Modificaciones Lapso 2027-1 y Certificados de Competencia',
+        fecha: 'No se realizará para este lapso',
         categoria: 'Modificación',
         imagen: imagenes['Modificación'],
     },
     {
-        titulo: 'Curso de Iniciación de Postgrado 2026',
-        fecha: 'Tercer curso: del 21/09/2026 al 09/10/2026',
-        categoria: 'Postgrado',
-        imagen: imagenes['Postgrado'],
+        titulo: 'Certificación de Documentos Suspendida',
+        fecha: 'Hasta nuevo aviso (Pregrado y Postgrado)',
+        categoria: 'Advertencia',
+        imagen: imagenes['Advertencia'],
     },
-    {
-        titulo: 'Próximas Inscripciones para Nuevo Ingreso 2026-2',
-        fecha: 'Del 21/07/2026 al 30/09/2026',
-        categoria: 'Inscripción',
-        imagen: imagenes['Inscripción'],
-        destacado: true,
-    },
-    {
-        titulo: 'Inscripción Prueba de Suficiencia de Inglés 2do Momento',
-        fecha: 'Del 13/10/2026 al 17/10/2026',
-        categoria: 'Inglés',
-        imagen: imagenes['Inglés'],
-    },
-    {
-        titulo: 'Entrega de Certificado de Competencia',
-        fecha: 'Del 08/06/2026 al 26/06/2026',
-        categoria: 'Competencia',
-        imagen: imagenes['Competencia'],
-    },
+    // Mantenemos la tarjeta de la orientadora para el Curso Introductorio, 
+    // a menos que quieras quitarla. Si quieres quitarla, solo borra este objeto.
     {
         titulo: 'Inscripción Curso Introductorio',
         fecha: 'Hasta el 30 de septiembre de 2026',
         categoria: 'Inscripción',
         imagen: imagenes['Inscripción'],
         orientadora: true,
-    },
-    {
-        titulo: 'Proceso de Modificaciones Lapso 2027-1',
-        fecha: 'Del 20/10/2026 al 31/10/2026',
-        categoria: 'Modificación',
-        imagen: imagenes['Modificación'],
     },
 ]
 
