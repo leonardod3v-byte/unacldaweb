@@ -149,14 +149,6 @@ function DirectivoCard({ persona, indice }: { persona: Persona; indice: number }
                     className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
                 />
                 <div className="absolute inset-0 bg-linear-to-t from-una-navy-dark via-una-navy-dark/40 to-transparent" />
-
-                <span className="absolute left-4 top-4 inline-flex items-center gap-1.5 rounded-full bg-una-accent px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-white shadow-lg">
-                    <span className="relative flex h-1.5 w-1.5">
-                        <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-white opacity-75" />
-                        <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-white" />
-                    </span>
-                    Directivo
-                </span>
             </div>
 
             <div className="relative p-6 text-center">

@@ -91,41 +91,6 @@ export function Sede() {
                 </div>
 
                 {/* ============================================================
-            Stats mini
-            ============================================================ */}
-                <div className="mx-auto mt-8 flex max-w-lg flex-wrap items-center justify-center gap-x-8 gap-y-3">
-                    <div className="flex items-center gap-2.5">
-                        <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-una-accent/15 text-una-accent">
-                            <Camera className="h-4 w-4" />
-                        </span>
-                        <div className="text-left">
-                            <p className="font-heading text-base font-bold leading-none text-white">
-                                {imagenesSede.length}
-                            </p>
-                            <p className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
-                                Fotos
-                            </p>
-                        </div>
-                    </div>
-
-                    <span className="hidden h-8 w-px bg-white/20 sm:block" />
-
-                    <div className="flex items-center gap-2.5">
-                        <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-una-accent/15 text-una-accent">
-                            <Sparkles className="h-4 w-4" />
-                        </span>
-                        <div className="text-left">
-                            <p className="font-heading text-base font-bold leading-none text-white">
-                                +45 Años
-                            </p>
-                            <p className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
-                                De historia
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                {/* ============================================================
             Grid Bento: 1 destacada (2x2) + 7 medianas
             ============================================================ */}
                 <div className="mt-12 grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-4">

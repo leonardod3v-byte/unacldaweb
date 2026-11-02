@@ -23,19 +23,7 @@ interface Anuncio {
 }
 
 // ============================================================
-// Imágenes por categoría (mantén las que tenías)
-// ============================================================
-const imagenes: Record<Categoria, string> = {
-    Inglés: 'https://images.unsplash.com/photo-1546410531-bb4caa6b424d?q=80&w=800&auto=format&fit=crop',
-    Modificación: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=800&auto=format&fit=crop',
-    Postgrado: 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=800&auto=format&fit=crop',
-    Inscripción: 'https://images.unsplash.com/photo-1434030216411-0b793f4b4173?q=80&w=800&auto=format&fit=crop',
-    Competencia: 'https://images.unsplash.com/photo-1589330694653-ded6df03f754?q=80&w=800&auto=format&fit=crop',
-    Advertencia: 'https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=800&auto=format&fit=crop', // Puedes cambiarla
-}
-
-// ============================================================
-// Datos: orientadora (Tibisay)
+// Datos: orientadora
 // ============================================================
 const orientadora = {
     nombre: 'MsC Tibisay Padrino',
@@ -47,14 +35,14 @@ const orientadora = {
 }
 
 // ============================================================
-// Datos: NUEVOS ANUNCIOS
+// Datos: anuncios (Usando tus 10 imágenes)
 // ============================================================
 const anuncios: Anuncio[] = [
     {
         titulo: 'Inscripción de 2do Proceso de Suficiencia de Inglés',
         fecha: '13 al 17 de octubre (Lapso 2026-2)',
         categoria: 'Inglés',
-        imagen: imagenes['Inglés'],
+        imagen: '/images/cartelera/cartelera1.jpeg',
         destacado: true,
         href: 'https://unasec.una.edu.ve',
     },
@@ -62,27 +50,25 @@ const anuncios: Anuncio[] = [
         titulo: 'Adición y Retiro de Asignaturas (No habilitado)',
         fecha: 'Lapso 2026-2',
         categoria: 'Advertencia',
-        imagen: imagenes['Advertencia'],
+        imagen: '/images/cartelera/cartelera2.jpeg',
     },
     {
         titulo: 'Modificaciones Lapso 2027-1 y Certificados de Competencia',
         fecha: 'No se realizará para este lapso',
         categoria: 'Modificación',
-        imagen: imagenes['Modificación'],
+        imagen: '/images/cartelera/cartelera3.jpeg',
     },
     {
         titulo: 'Certificación de Documentos Suspendida',
         fecha: 'Hasta nuevo aviso (Pregrado y Postgrado)',
         categoria: 'Advertencia',
-        imagen: imagenes['Advertencia'],
+        imagen: '/images/cartelera/cartelera4.jpeg',
     },
-    // Mantenemos la tarjeta de la orientadora para el Curso Introductorio, 
-    // a menos que quieras quitarla. Si quieres quitarla, solo borra este objeto.
     {
         titulo: 'Inscripción Curso Introductorio',
         fecha: 'Hasta el 30 de septiembre de 2026',
         categoria: 'Inscripción',
-        imagen: imagenes['Inscripción'],
+        imagen: '/images/cartelera/cartelera5.jpeg',
         orientadora: true,
     },
 ]
@@ -103,7 +89,6 @@ function OrientadoraModal({ onClose }: { onClose: () => void }) {
                 onClick={(e) => e.stopPropagation()}
                 className="relative w-full overflow-hidden rounded-2xl bg-white shadow-2xl"
             >
-                {/* Botón cerrar */}
                 <button
                     type="button"
                     onClick={onClose}
@@ -113,7 +98,6 @@ function OrientadoraModal({ onClose }: { onClose: () => void }) {
                     <X className="h-4 w-4" />
                 </button>
 
-                {/* Header con gradiente */}
                 <div className="relative bg-linear-to-br from-una-navy via-una-navy to-una-navy-dark px-5 pb-12 pt-6">
                     <div
                         aria-hidden="true"
@@ -123,18 +107,8 @@ function OrientadoraModal({ onClose }: { onClose: () => void }) {
                         aria-hidden="true"
                         className="pointer-events-none absolute -left-10 bottom-0 h-24 w-24 rounded-full bg-white/10 blur-3xl"
                     />
-                    <div
-                        aria-hidden="true"
-                        className="absolute inset-0 opacity-[0.08]"
-                        style={{
-                            backgroundImage:
-                                'linear-gradient(rgba(255,255,255,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.5) 1px, transparent 1px)',
-                            backgroundSize: '20px 20px',
-                        }}
-                    />
                 </div>
 
-                {/* Foto circular */}
                 <div className="relative -mt-12 flex justify-center px-5">
                     <div className="relative">
                         <img
@@ -158,7 +132,6 @@ function OrientadoraModal({ onClose }: { onClose: () => void }) {
                     </div>
                 </div>
 
-                {/* Info */}
                 <div className="px-5 pb-5 pt-3 text-center">
                     <h3 className="font-heading text-base font-extrabold leading-tight text-una-navy">
                         {orientadora.nombre}
@@ -288,11 +261,10 @@ function AnnouncementCard({
     )
 
     const clases = `group relative flex w-80 shrink-0 snap-start flex-col rounded-2xl border bg-white shadow-md transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl sm:w-96 ${anuncio.destacado
-        ? 'border-una-accent/40 ring-2 ring-una-accent/20 hover:ring-una-accent/60'
-        : 'border-slate-200 hover:border-una-accent/40'
+            ? 'border-una-accent/40 ring-2 ring-una-accent/20 hover:ring-una-accent/60'
+            : 'border-slate-200 hover:border-una-accent/40'
         }`
 
-    // Card con orientadora: PC hover + móvil click
     if (anuncio.orientadora) {
         return (
             <div
@@ -341,74 +313,71 @@ export function BulletinBoard() {
     const listaDuplicada = [...anuncios, ...anuncios]
 
     return (
-        <>
-            <section
-                id="cartelera"
-                className="relative scroll-mt-20 overflow-hidden bg-white py-20 sm:py-24"
-            >
-                <div aria-hidden="true" className="pointer-events-none absolute inset-0">
-                    <div className="absolute -left-32 top-20 h-72 w-72 rounded-full bg-una-accent/5 blur-3xl" />
-                    <div className="absolute -right-32 bottom-20 h-72 w-72 rounded-full bg-una-navy/5 blur-3xl" />
+        <section
+            id="cartelera"
+            className="relative scroll-mt-20 overflow-hidden bg-white py-20 sm:py-24"
+        >
+            <div aria-hidden="true" className="pointer-events-none absolute inset-0">
+                <div className="absolute -left-32 top-20 h-72 w-72 rounded-full bg-una-accent/5 blur-3xl" />
+                <div className="absolute -right-32 bottom-20 h-72 w-72 rounded-full bg-una-navy/5 blur-3xl" />
+                <div
+                    className="absolute inset-0 opacity-[0.03]"
+                    style={{
+                        backgroundImage:
+                            'radial-gradient(circle, rgba(10,107,196,0.8) 1px, transparent 1px)',
+                        backgroundSize: '24px 24px',
+                    }}
+                />
+            </div>
+
+            <div className="relative">
+                <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                    <div className="mx-auto max-w-2xl text-center">
+                        <span className="inline-flex items-center gap-2 rounded-full border border-una-accent/30 bg-una-accent/10 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.2em] text-una-accent">
+                            <span className="relative flex h-2 w-2">
+                                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-una-accent opacity-75" />
+                                <span className="relative inline-flex h-2 w-2 rounded-full bg-una-accent" />
+                            </span>
+                            <Bell className="h-3.5 w-3.5" />
+                            Atención estudiantes
+                        </span>
+
+                        <h2 className="mt-4 font-heading text-3xl font-extrabold leading-tight text-una-navy text-balance sm:text-4xl">
+                            Cartelera Informativa
+                        </h2>
+                        <p className="mt-4 text-base text-slate-600 text-pretty">
+                            Consulta las fechas y procesos académicos vigentes del Centro
+                            Local Delta Amacuro.
+                        </p>
+                    </div>
+                </div>
+
+                <div className="relative mt-14">
+                    <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-20 bg-linear-to-r from-white to-transparent sm:w-32" />
+                    <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-20 bg-linear-to-l from-white to-transparent sm:w-32" />
 
                     <div
-                        className="absolute inset-0 opacity-[0.03]"
-                        style={{
-                            backgroundImage:
-                                'radial-gradient(circle, rgba(10,107,196,0.8) 1px, transparent 1px)',
-                            backgroundSize: '24px 24px',
-                        }}
-                    />
-                </div>
-
-                <div className="relative">
-                    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                        <div className="mx-auto max-w-2xl text-center">
-                            <span className="inline-flex items-center gap-2 rounded-full border border-una-accent/30 bg-una-accent/10 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.2em] text-una-accent">
-                                <span className="relative flex h-2 w-2">
-                                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-una-accent opacity-75" />
-                                    <span className="relative inline-flex h-2 w-2 rounded-full bg-una-accent" />
-                                </span>
-                                <Bell className="h-3.5 w-3.5" />
-                                Atención estudiantes
-                            </span>
-
-                            <h2 className="mt-4 font-heading text-3xl font-extrabold leading-tight text-una-navy text-balance sm:text-4xl">
-                                Cartelera Informativa
-                            </h2>
-                            <p className="mt-4 text-base text-slate-600 text-pretty">
-                                Consulta las fechas y procesos académicos vigentes del Centro
-                                Local Delta Amacuro.
-                            </p>
-                        </div>
-                    </div>
-
-                    <div className="relative mt-14">
-                        <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-20 bg-linear-to-r from-white to-transparent sm:w-32" />
-                        <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-20 bg-linear-to-l from-white to-transparent sm:w-32" />
-
+                        className="overflow-x-clip overflow-y-visible py-4"
+                        onMouseEnter={() => setPausado(true)}
+                        onMouseLeave={() => setPausado(false)}
+                    >
                         <div
-                            className="overflow-x-clip overflow-y-visible py-4"
-                            onMouseEnter={() => setPausado(true)}
-                            onMouseLeave={() => setPausado(false)}
+                            className="bulletin-track-horizontal flex gap-6 pl-4 sm:pl-6 lg:pl-8"
+                            style={{ animationPlayState: pausado ? 'paused' : 'running' }}
                         >
-                            <div
-                                className="bulletin-track-horizontal flex gap-6 pl-4 sm:pl-6 lg:pl-8"
-                                style={{ animationPlayState: pausado ? 'paused' : 'running' }}
-                            >
-                                {listaDuplicada.map((a, i) => (
-                                    <AnnouncementCard
-                                        key={`${i}-${a.titulo}`}
-                                        anuncio={a}
-                                        modalAbierto={a.orientadora ? modalAbierto : false}
-                                        onOrientadoraOpen={() => setModalAbierto(true)}
-                                        onOrientadoraClose={() => setModalAbierto(false)}
-                                    />
-                                ))}
-                            </div>
+                            {listaDuplicada.map((a, i) => (
+                                <AnnouncementCard
+                                    key={`${i}-${a.titulo}`}
+                                    anuncio={a}
+                                    modalAbierto={a.orientadora ? modalAbierto : false}
+                                    onOrientadoraOpen={() => setModalAbierto(true)}
+                                    onOrientadoraClose={() => setModalAbierto(false)}
+                                />
+                            ))}
                         </div>
                     </div>
                 </div>
-            </section>
-        </>
+            </div>
+        </section>
     )
 }
